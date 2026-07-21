@@ -5,13 +5,14 @@ export type NodeType = "supplier" | "chokepoint" | "port" | "refinery" | "pipeli
 export interface GraphNode {
   id: string;
   name: string;
-  node_type: NodeType;
+  node_type: NodeType | string;
   country?: string | null;
   region?: string | null;
   lat: number;
   lng: number;
   capacity_bpd?: number | null;
-  metadata?: Record<string, unknown> | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  metadata?: any;
 }
 export interface GraphEdge {
   id: string;
@@ -23,7 +24,8 @@ export interface GraphEdge {
   base_risk: number;
   current_risk: number;
   disabled: boolean;
-  metadata?: Record<string, unknown> | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  metadata?: any;
 }
 
 /** Cost = transit_days * (1 + 6 * risk). Risk hikes penalize the path. */
