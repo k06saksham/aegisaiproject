@@ -52,7 +52,6 @@ async function callLLM(opts: {
 
 function safeJson<T>(s: string, fallback: T): T {
   try {
-    // strip ```json fences
     const clean = s.replace(/^```json\s*|^```\s*|```$/gim, "").trim();
     return JSON.parse(clean) as T;
   } catch {
@@ -60,7 +59,8 @@ function safeJson<T>(s: string, fallback: T): T {
   }
 }
 
-async function loadGraph(supabase: ReturnType<typeof import("@supabase/supabase-js").createClient>) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function loadGraph(supabase: any) {
   const [nRes, eRes] = await Promise.all([
     supabase.from("nodes").select("*"),
     supabase.from("edges").select("*"),
