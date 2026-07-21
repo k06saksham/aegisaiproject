@@ -182,7 +182,7 @@ export const runScenario = createServerFn({ method: "POST" })
         scenario_key: data.scenarioKey,
         params: {},
         active: true,
-        impact: { dri, ...impact, refineryRisk },
+        impact: JSON.parse(JSON.stringify({ dri, ...impact, refineryRisk })),
       })
       .select()
       .single();
