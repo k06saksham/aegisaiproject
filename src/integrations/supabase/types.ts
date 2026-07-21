@@ -14,7 +14,279 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      audit_log: {
+        Row: {
+          action: string
+          created_at: string
+          hash: string
+          id: string
+          payload: Json
+          prev_hash: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          hash: string
+          id?: string
+          payload: Json
+          prev_hash?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          hash?: string
+          id?: string
+          payload?: Json
+          prev_hash?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      edges: {
+        Row: {
+          base_risk: number
+          current_risk: number
+          disabled: boolean
+          distance_km: number
+          from_node: string
+          id: string
+          metadata: Json
+          mode: string
+          to_node: string
+          transit_days: number
+        }
+        Insert: {
+          base_risk?: number
+          current_risk?: number
+          disabled?: boolean
+          distance_km: number
+          from_node: string
+          id: string
+          metadata?: Json
+          mode: string
+          to_node: string
+          transit_days?: number
+        }
+        Update: {
+          base_risk?: number
+          current_risk?: number
+          disabled?: boolean
+          distance_km?: number
+          from_node?: string
+          id?: string
+          metadata?: Json
+          mode?: string
+          to_node?: string
+          transit_days?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "edges_from_node_fkey"
+            columns: ["from_node"]
+            isOneToOne: false
+            referencedRelation: "nodes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "edges_to_node_fkey"
+            columns: ["to_node"]
+            isOneToOne: false
+            referencedRelation: "nodes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      nodes: {
+        Row: {
+          capacity_bpd: number | null
+          country: string | null
+          created_at: string
+          id: string
+          lat: number
+          lng: number
+          metadata: Json
+          name: string
+          node_type: string
+          region: string | null
+        }
+        Insert: {
+          capacity_bpd?: number | null
+          country?: string | null
+          created_at?: string
+          id: string
+          lat: number
+          lng: number
+          metadata?: Json
+          name: string
+          node_type: string
+          region?: string | null
+        }
+        Update: {
+          capacity_bpd?: number | null
+          country?: string | null
+          created_at?: string
+          id?: string
+          lat?: number
+          lng?: number
+          metadata?: Json
+          name?: string
+          node_type?: string
+          region?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      recommendations: {
+        Row: {
+          agent: string
+          created_at: string
+          id: string
+          latency_ms: number | null
+          payload: Json
+          scenario_id: string | null
+          signal_id: string | null
+          title: string
+          user_id: string | null
+        }
+        Insert: {
+          agent: string
+          created_at?: string
+          id?: string
+          latency_ms?: number | null
+          payload: Json
+          scenario_id?: string | null
+          signal_id?: string | null
+          title: string
+          user_id?: string | null
+        }
+        Update: {
+          agent?: string
+          created_at?: string
+          id?: string
+          latency_ms?: number | null
+          payload?: Json
+          scenario_id?: string | null
+          signal_id?: string | null
+          title?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recommendations_scenario_id_fkey"
+            columns: ["scenario_id"]
+            isOneToOne: false
+            referencedRelation: "scenarios"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "recommendations_signal_id_fkey"
+            columns: ["signal_id"]
+            isOneToOne: false
+            referencedRelation: "signals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      scenarios: {
+        Row: {
+          active: boolean
+          created_at: string
+          description: string | null
+          id: string
+          impact: Json | null
+          name: string
+          params: Json
+          scenario_key: string
+          user_id: string | null
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          description?: string | null
+          id?: string
+          impact?: Json | null
+          name: string
+          params?: Json
+          scenario_key: string
+          user_id?: string | null
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          description?: string | null
+          id?: string
+          impact?: Json | null
+          name?: string
+          params?: Json
+          scenario_key?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      signals: {
+        Row: {
+          analysis: Json | null
+          analyzed_at: string | null
+          category: string
+          created_at: string
+          id: string
+          raw_text: string | null
+          region: string | null
+          severity: number
+          source: string | null
+          status: string
+          title: string
+          user_id: string | null
+        }
+        Insert: {
+          analysis?: Json | null
+          analyzed_at?: string | null
+          category: string
+          created_at?: string
+          id?: string
+          raw_text?: string | null
+          region?: string | null
+          severity?: number
+          source?: string | null
+          status?: string
+          title: string
+          user_id?: string | null
+        }
+        Update: {
+          analysis?: Json | null
+          analyzed_at?: string | null
+          category?: string
+          created_at?: string
+          id?: string
+          raw_text?: string | null
+          region?: string | null
+          severity?: number
+          source?: string | null
+          status?: string
+          title?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
